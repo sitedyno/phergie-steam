@@ -203,11 +203,20 @@ class Plugin extends AbstractPlugin
         $website = $data->website;
         $developers = $data->developers;
         $publishers = $data->publishers;
-        $currency = $data->price_overview->currency;
-        $current_price = $data->price_overview->final;
-        $discount_percent = $data->price_overview->discount_percent;
+        if (isset($data->price_overview)) {
+            $currency = $data->price_overview->currency;
+            $current_price = $data->price_overview->final;
+            $discount_percent = $data->price_overview->discount_percent;
+        } else {
+            $currency = $current_price = '';
+            $discount_percent = 0;
+        }
         $platforms = $data->platforms;
-        $metacritic = $data->metacritic->score;
+        if (isset($data->metacritic)) {
+            $metacritic = $data->metacritic->score;
+        } else {
+            $metacritic = '';
+        }
         $recommendations = $data->recommendations->total;
         $release_date = $data->release_date->date;
 
@@ -230,7 +239,7 @@ class Plugin extends AbstractPlugin
             $price .= "($discount_percent% off)";
         }
         if ($is_free) {
-            $price = 'free';
+            $price = 'FREE!';
         }
         $supported_platforms = [];
         foreach ($platforms as $platform => $supported) {
