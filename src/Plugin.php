@@ -195,7 +195,11 @@ class Plugin extends AbstractPlugin
         $name = $data->name;
         $required_age = $data->required_age;
         $is_free = $data->is_free;
-        $dlc = $data->dlc;
+        if (isset($data->dlc)) {
+            $dlc = $data->dlc;
+        } else {
+            $dlc = [];
+        }
         $website = $data->website;
         $developers = $data->developers;
         $publishers = $data->publishers;
@@ -214,7 +218,7 @@ class Plugin extends AbstractPlugin
         if ($dlc_count > 0) {
             $dlc = $dlc_count;
         } else {
-            $dlc = '';
+            $dlc = 'none';
         }
         $developers = implode(',', $developers);
         $publishers = implode(',', $publishers);
@@ -245,7 +249,7 @@ class Plugin extends AbstractPlugin
             '%price%' => $price,
             '%platforms%' => $supported_platforms,
             '%metacritic%' => $metacritic,
-            '%recommendations%' => $recommendations,
+            '%recommendations%' => number_format($recommendations),
             '%release_date%' => $release_date,
         ];
     }
