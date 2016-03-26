@@ -1,0 +1,42 @@
+{
+    "name": "sitedyno/phergie-steam",
+    "description": "Phergie plugin for Display info about steam apps.",
+    "keywords": [ "phergie", "irc", "bot", "plugin" ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Heath Nail",
+            "email": "sitedyno@gmail.com",
+            "homepage": "https://github.com/sitedyno",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "email": "sitedyno@gmail.com",
+        "irc": "irc://irc.freenode.net/phergie",
+        "issues": "https://github.com/sitedyno/phergie-steam/issues",
+        "source": "https://github.com/sitedyno/phergie-steam"
+    },
+    "require": {
+        "phergie/phergie-irc-plugin-react-url": "^3.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "4.5.*",
+        "phake/phake": "2.0.0-beta2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sitedyno\\Phergie\\Plugin\\Steam\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Phergie\\Irc\\Tests\\Plugin\\React\\Steam\\": "tests"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
