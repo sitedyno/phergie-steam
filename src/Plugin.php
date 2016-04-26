@@ -30,6 +30,11 @@ class Plugin extends AbstractPlugin
     const INVALID_RESPONSEFORMAT = 1;
 
     /**
+     * Invalid countryCode code
+     */
+    const INVALID_COUNTRYCODE = 2;
+
+    /**
      * store.steampowered.com api URL
      *
      * @protected
@@ -42,6 +47,11 @@ class Plugin extends AbstractPlugin
     protected $responseFormat = '[%type%]%name% Age:%required_age% DLC:%dlc% devs[%developers%] pubs[%publishers%] %price% %platforms% Metacritic:%metacritic% Recommendations:%recommendations% Released:%release_date%';
 
     /**
+     * Country code - Determines currency
+     */
+    protected $countryCode = 'us';
+
+    /**
      * Accepts plugin configuration.
      *
      * Supported keys:
@@ -52,6 +62,7 @@ class Plugin extends AbstractPlugin
      */
     public function __construct(array $config = [])
     {
+        $this->countryCode = $this->getCountryCode($config);
         $this->responseFormat = $this->getResponseFormat($config);
     }
 
@@ -112,7 +123,7 @@ class Plugin extends AbstractPlugin
      */
     public function getApiUrl($appId)
     {
-        return $this->steamPoweredApiUrl . $appId;
+        return $this->steamPoweredApiUrl . $appId . '&cc=' . $this->countryCode;
     }
 
     /**
@@ -282,5 +293,26 @@ class Plugin extends AbstractPlugin
             return $config['responseFormat'];
         }
         return $this->responseFormat;
+    }
+
+    /**
+     * Returns the country code to use in the API request.
+     *
+     * @param array $config
+     * @return string
+     * @throws \DomainException if country code is invalid
+     */
+    protected function getCountryCode(array $config)
+    {
+        if (isset($config['contryCode'])) {
+            if (!is_string($config['countryCode']) && strlen($config['countryCode']) !== 2) {
+                throw new DomainException(
+                    'countryCode must be a country code of 2 characters EX: us',
+                    Plugin::INVALID_COUNTRYCODE
+                );
+            }
+            return $config['countryCode'];
+        }
+        return $this->countryCode;
     }
 }
