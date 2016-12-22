@@ -77,7 +77,7 @@ class PluginTest extends \PHPUnit_Framework_TestCase
     {
         yield [
             730,
-            'http://store.steampowered.com/api/appdetails?appids=730'
+            'http://store.steampowered.com/api/appdetails?appids=730&cc=us'
         ];
     }
 
